@@ -23,14 +23,14 @@ import com.ruoyi.common.core.page.TableDataInfo;
 
 /**
  * 航班信息Controller
- * 
+ *
  * @author sleeping
  * @date 2025-01-06
  */
 @RestController
 @RequestMapping("/aviation/flights")
 public class FlightsController extends BaseController
-{
+{ 
     @Autowired
     private IFlightsService flightsService;
 
