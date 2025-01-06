@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.aviation.mapper.RefundsMapper">
+    
+    <resultMap type="Refunds" id="RefundsResult">
+        <result property="refundId"    column="refund_id"    />
+        <result property="orderId"    column="order_id"    />
+        <result property="refundAmount"    column="refund_amount"    />
+        <result property="refundReason"    column="refund_reason"    />
+        <result property="refundStatus"    column="refund_status"    />
+        <result property="refundTime"    column="refund_time"    />
+        <result property="createdTime"    column="created_time"    />
+        <result property="updatedTime"    column="updated_time"    />
+    </resultMap>
+
+    <sql id="selectRefundsVo">
+        select refund_id, order_id, refund_amount, refund_reason, refund_status, refund_time, created_time, updated_time from a_refunds
+    </sql>
+
+    <select id="selectRefundsList" parameterType="Refunds" resultMap="RefundsResult">
+        <include refid="selectRefundsVo"/>
+        <where>  
+            <if test="orderId != null  and orderId != ''"> and order_id = #{orderId}</if>
+            <if test="refundAmount != null "> and refund_amount = #{refundAmount}</if>
+            <if test="refundReason != null  and refundReason != ''"> and refund_reason = #{refundReason}</if>
+            <if test="refundStatus != null  and refundStatus != ''"> and refund_status = #{refundStatus}</if>
+            <if test="refundTime != null "> and refund_time = #{refundTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectRefundsByRefundId" parameterType="Long" resultMap="RefundsResult">
+        <include refid="selectRefundsVo"/>
+        where refund_id = #{refundId}
+    </select>
+
+    <insert id="insertRefunds" parameterType="Refunds">
+        insert into a_refunds
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="refundId != null">refund_id,</if>
+            <if test="orderId != null">order_id,</if>
+            <if test="refundAmount != null">refund_amount,</if>
+            <if test="refundReason != null">refund_reason,</if>
+            <if test="refundStatus != null">refund_status,</if>
+            <if test="refundTime != null">refund_time,</if>
+            <if test="createdTime != null">created_time,</if>
+            <if test="updatedTime != null">updated_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="refundId != null">#{refundId},</if>
+            <if test="orderId != null">#{orderId},</if>
+            <if test="refundAmount != null">#{refundAmount},</if>
+            <if test="refundReason != null">#{refundReason},</if>
+            <if test="refundStatus != null">#{refundStatus},</if>
+            <if test="refundTime != null">#{refundTime},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updatedTime != null">#{updatedTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateRefunds" parameterType="Refunds">
+        update a_refunds
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderId != null">order_id = #{orderId},</if>
+            <if test="refundAmount != null">refund_amount = #{refundAmount},</if>
+            <if test="refundReason != null">refund_reason = #{refundReason},</if>
+            <if test="refundStatus != null">refund_status = #{refundStatus},</if>
+            <if test="refundTime != null">refund_time = #{refundTime},</if>
+            <if test="createdTime != null">created_time = #{createdTime},</if>
+            <if test="updatedTime != null">updated_time = #{updatedTime},</if>
+        </trim>
+        where refund_id = #{refundId}
+    </update>
+
+    <delete id="deleteRefundsByRefundId" parameterType="Long">
+        delete from a_refunds where refund_id = #{refundId}
+    </delete>
+
+    <delete id="deleteRefundsByRefundIds" parameterType="String">
+        delete from a_refunds where refund_id in 
+        <foreach item="refundId" collection="array" open="(" separator="," close=")">
+            #{refundId}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.aviation.mapper.TicketPricesMapper">
+    
+    <resultMap type="TicketPrices" id="TicketPricesResult">
+        <result property="priceId"    column="price_id"    />
+        <result property="flightId"    column="flight_id"    />
+        <result property="cabinClass"    column="cabin_class"    />
+        <result property="price"    column="price"    />
+        <result property="remainingSeats"    column="remaining_seats"    />
+        <result property="createdTime"    column="created_time"    />
+        <result property="updatedTime"    column="updated_time"    />
+    </resultMap>
+
+    <sql id="selectTicketPricesVo">
+        select price_id, flight_id, cabin_class, price, remaining_seats, created_time, updated_time from a_ticket_prices
+    </sql>
+
+    <select id="selectTicketPricesList" parameterType="TicketPrices" resultMap="TicketPricesResult">
+        <include refid="selectTicketPricesVo"/>
+        <where>  
+            <if test="flightId != null  and flightId != ''"> and flight_id = #{flightId}</if>
+            <if test="cabinClass != null  and cabinClass != ''"> and cabin_class = #{cabinClass}</if>
+            <if test="price != null "> and price = #{price}</if>
+            <if test="remainingSeats != null "> and remaining_seats = #{remainingSeats}</if>
+        </where>
+    </select>
+    
+    <select id="selectTicketPricesByPriceId" parameterType="Long" resultMap="TicketPricesResult">
+        <include refid="selectTicketPricesVo"/>
+        where price_id = #{priceId}
+    </select>
+
+    <insert id="insertTicketPrices" parameterType="TicketPrices" useGeneratedKeys="true" keyProperty="priceId">
+        insert into a_ticket_prices
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="flightId != null">flight_id,</if>
+            <if test="cabinClass != null">cabin_class,</if>
+            <if test="price != null">price,</if>
+            <if test="remainingSeats != null">remaining_seats,</if>
+            <if test="createdTime != null">created_time,</if>
+            <if test="updatedTime != null">updated_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="flightId != null">#{flightId},</if>
+            <if test="cabinClass != null">#{cabinClass},</if>
+            <if test="price != null">#{price},</if>
+            <if test="remainingSeats != null">#{remainingSeats},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updatedTime != null">#{updatedTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTicketPrices" parameterType="TicketPrices">
+        update a_ticket_prices
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="flightId != null">flight_id = #{flightId},</if>
+            <if test="cabinClass != null">cabin_class = #{cabinClass},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="remainingSeats != null">remaining_seats = #{remainingSeats},</if>
+            <if test="createdTime != null">created_time = #{createdTime},</if>
+            <if test="updatedTime != null">updated_time = #{updatedTime},</if>
+        </trim>
+        where price_id = #{priceId}
+    </update>
+
+    <delete id="deleteTicketPricesByPriceId" parameterType="Long">
+        delete from a_ticket_prices where price_id = #{priceId}
+    </delete>
+
+    <delete id="deleteTicketPricesByPriceIds" parameterType="String">
+        delete from a_ticket_prices where price_id in 
+        <foreach item="priceId" collection="array" open="(" separator="," close=")">
+            #{priceId}
+        </foreach>
+    </delete>
+</mapper>

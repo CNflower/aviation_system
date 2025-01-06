@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.aviation.mapper.OrdersMapper">
+    
+    <resultMap type="Orders" id="OrdersResult">
+        <result property="orderId"    column="order_id"    />
+        <result property="passengerId"    column="passenger_id"    />
+        <result property="flightId"    column="flight_id"    />
+        <result property="priceId"    column="price_id"    />
+        <result property="seatNumber"    column="seat_number"    />
+        <result property="orderStatus"    column="order_status"    />
+        <result property="orderTime"    column="order_time"    />
+        <result property="paymentTime"    column="payment_time"    />
+        <result property="totalAmount"    column="total_amount"    />
+        <result property="createdTime"    column="created_time"    />
+        <result property="updatedTime"    column="updated_time"    />
+    </resultMap>
+
+    <sql id="selectOrdersVo">
+        select order_id, passenger_id, flight_id, price_id, seat_number, order_status, order_time, payment_time, total_amount, created_time, updated_time from a_orders
+    </sql>
+
+    <select id="selectOrdersList" parameterType="Orders" resultMap="OrdersResult">
+        <include refid="selectOrdersVo"/>
+        <where>  
+            <if test="passengerId != null "> and passenger_id = #{passengerId}</if>
+            <if test="flightId != null  and flightId != ''"> and flight_id = #{flightId}</if>
+            <if test="priceId != null "> and price_id = #{priceId}</if>
+            <if test="seatNumber != null  and seatNumber != ''"> and seat_number = #{seatNumber}</if>
+            <if test="orderStatus != null  and orderStatus != ''"> and order_status = #{orderStatus}</if>
+            <if test="orderTime != null "> and order_time = #{orderTime}</if>
+            <if test="paymentTime != null "> and payment_time = #{paymentTime}</if>
+            <if test="totalAmount != null "> and total_amount = #{totalAmount}</if>
+        </where>
+    </select>
+    
+    <select id="selectOrdersByOrderId" parameterType="Long" resultMap="OrdersResult">
+        <include refid="selectOrdersVo"/>
+        where order_id = #{orderId}
+    </select>
+
+    <insert id="insertOrders" parameterType="Orders">
+        insert into a_orders
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">order_id,</if>
+            <if test="passengerId != null">passenger_id,</if>
+            <if test="flightId != null">flight_id,</if>
+            <if test="priceId != null">price_id,</if>
+            <if test="seatNumber != null">seat_number,</if>
+            <if test="orderStatus != null">order_status,</if>
+            <if test="orderTime != null">order_time,</if>
+            <if test="paymentTime != null">payment_time,</if>
+            <if test="totalAmount != null">total_amount,</if>
+            <if test="createdTime != null">created_time,</if>
+            <if test="updatedTime != null">updated_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">#{orderId},</if>
+            <if test="passengerId != null">#{passengerId},</if>
+            <if test="flightId != null">#{flightId},</if>
+            <if test="priceId != null">#{priceId},</if>
+            <if test="seatNumber != null">#{seatNumber},</if>
+            <if test="orderStatus != null">#{orderStatus},</if>
+            <if test="orderTime != null">#{orderTime},</if>
+            <if test="paymentTime != null">#{paymentTime},</if>
+            <if test="totalAmount != null">#{totalAmount},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updatedTime != null">#{updatedTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateOrders" parameterType="Orders">
+        update a_orders
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="passengerId != null">passenger_id = #{passengerId},</if>
+            <if test="flightId != null">flight_id = #{flightId},</if>
+            <if test="priceId != null">price_id = #{priceId},</if>
+            <if test="seatNumber != null">seat_number = #{seatNumber},</if>
+            <if test="orderStatus != null">order_status = #{orderStatus},</if>
+            <if test="orderTime != null">order_time = #{orderTime},</if>
+            <if test="paymentTime != null">payment_time = #{paymentTime},</if>
+            <if test="totalAmount != null">total_amount = #{totalAmount},</if>
+            <if test="createdTime != null">created_time = #{createdTime},</if>
+            <if test="updatedTime != null">updated_time = #{updatedTime},</if>
+        </trim>
+        where order_id = #{orderId}
+    </update>
+
+    <delete id="deleteOrdersByOrderId" parameterType="Long">
+        delete from a_orders where order_id = #{orderId}
+    </delete>
+
+    <delete id="deleteOrdersByOrderIds" parameterType="String">
+        delete from a_orders where order_id in 
+        <foreach item="orderId" collection="array" open="(" separator="," close=")">
+            #{orderId}
+        </foreach>
+    </delete>
+</mapper>
