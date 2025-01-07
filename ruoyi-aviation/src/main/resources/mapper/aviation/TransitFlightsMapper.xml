@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.aviation.mapper.TransitFlightsMapper">
+    
+    <resultMap type="TransitFlights" id="TransitFlightsResult">
+        <result property="transitId"    column="transit_id"    />
+        <result property="flightId"    column="flight_id"    />
+        <result property="transitAircom"    column="transit_aircom"    />
+        <result property="transitCity"    column="transit_city"    />
+        <result property="departureTime"    column="departure_time"    />
+        <result property="arrivalTime"    column="arrival_time"    />
+        <result property="transitOrder"    column="transit_order"    />
+        <result property="totalSeats"    column="total_seats"    />
+        <result property="price"    column="price"    />
+        <result property="createdTime"    column="created_time"    />
+        <result property="updatedTime"    column="updated_time"    />
+    </resultMap>
+
+    <sql id="selectTransitFlightsVo">
+        select transit_id, flight_id, transit_aircom, transit_city, departure_time, arrival_time, transit_order, total_seats, price, created_time, updated_time from a_transit_flights
+    </sql>
+
+    <select id="selectTransitFlightsList" parameterType="TransitFlights" resultMap="TransitFlightsResult">
+        <include refid="selectTransitFlightsVo"/>
+        <where>  
+            <if test="flightId != null "> and flight_id = #{flightId}</if>
+            <if test="transitAircom != null  and transitAircom != ''"> and transit_aircom = #{transitAircom}</if>
+            <if test="transitCity != null  and transitCity != ''"> and transit_city = #{transitCity}</if>
+            <if test="departureTime != null "> and departure_time = #{departureTime}</if>
+            <if test="arrivalTime != null "> and arrival_time = #{arrivalTime}</if>
+            <if test="transitOrder != null "> and transit_order = #{transitOrder}</if>
+            <if test="totalSeats != null "> and total_seats = #{totalSeats}</if>
+            <if test="price != null "> and price = #{price}</if>
+        </where>
+    </select>
+    
+    <select id="selectTransitFlightsByTransitId" parameterType="Long" resultMap="TransitFlightsResult">
+        <include refid="selectTransitFlightsVo"/>
+        where transit_id = #{transitId}
+    </select>
+
+    <insert id="insertTransitFlights" parameterType="TransitFlights">
+        insert into a_transit_flights
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="transitId != null">transit_id,</if>
+            <if test="flightId != null">flight_id,</if>
+            <if test="transitAircom != null">transit_aircom,</if>
+            <if test="transitCity != null">transit_city,</if>
+            <if test="departureTime != null">departure_time,</if>
+            <if test="arrivalTime != null">arrival_time,</if>
+            <if test="transitOrder != null">transit_order,</if>
+            <if test="totalSeats != null">total_seats,</if>
+            <if test="price != null">price,</if>
+            <if test="createdTime != null">created_time,</if>
+            <if test="updatedTime != null">updated_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="transitId != null">#{transitId},</if>
+            <if test="flightId != null">#{flightId},</if>
+            <if test="transitAircom != null">#{transitAircom},</if>
+            <if test="transitCity != null">#{transitCity},</if>
+            <if test="departureTime != null">#{departureTime},</if>
+            <if test="arrivalTime != null">#{arrivalTime},</if>
+            <if test="transitOrder != null">#{transitOrder},</if>
+            <if test="totalSeats != null">#{totalSeats},</if>
+            <if test="price != null">#{price},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updatedTime != null">#{updatedTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTransitFlights" parameterType="TransitFlights">
+        update a_transit_flights
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="flightId != null">flight_id = #{flightId},</if>
+            <if test="transitAircom != null">transit_aircom = #{transitAircom},</if>
+            <if test="transitCity != null">transit_city = #{transitCity},</if>
+            <if test="departureTime != null">departure_time = #{departureTime},</if>
+            <if test="arrivalTime != null">arrival_time = #{arrivalTime},</if>
+            <if test="transitOrder != null">transit_order = #{transitOrder},</if>
+            <if test="totalSeats != null">total_seats = #{totalSeats},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="createdTime != null">created_time = #{createdTime},</if>
+            <if test="updatedTime != null">updated_time = #{updatedTime},</if>
+        </trim>
+        where transit_id = #{transitId}
+    </update>
+
+    <delete id="deleteTransitFlightsByTransitId" parameterType="Long">
+        delete from a_transit_flights where transit_id = #{transitId}
+    </delete>
+
+    <delete id="deleteTransitFlightsByTransitIds" parameterType="String">
+        delete from a_transit_flights where transit_id in 
+        <foreach item="transitId" collection="array" open="(" separator="," close=")">
+            #{transitId}
+        </foreach>
+    </delete>
+</mapper>
