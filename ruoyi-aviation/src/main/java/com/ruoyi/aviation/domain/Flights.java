@@ -24,9 +24,17 @@ public class Flights extends BaseEntity
     @Excel(name = "航空公司")
     private String airlineCompany;
 
+    /** 出发机场 */
+    @Excel(name = "出发机场")
+    private String departureAir;
+
     /** 出发城市 */
     @Excel(name = "出发城市")
     private String departureCity;
+
+    /** 到达机场 */
+    @Excel(name = "到达机场")
+    private String arrivalAir;
 
     /** 到达城市 */
     @Excel(name = "到达城市")
@@ -86,6 +94,15 @@ public class Flights extends BaseEntity
     {
         return airlineCompany;
     }
+    public void setDepartureAir(String departureAir) 
+    {
+        this.departureAir = departureAir;
+    }
+
+    public String getDepartureAir() 
+    {
+        return departureAir;
+    }
     public void setDepartureCity(String departureCity) 
     {
         this.departureCity = departureCity;
@@ -94,6 +111,15 @@ public class Flights extends BaseEntity
     public String getDepartureCity() 
     {
         return departureCity;
+    }
+    public void setArrivalAir(String arrivalAir) 
+    {
+        this.arrivalAir = arrivalAir;
+    }
+
+    public String getArrivalAir() 
+    {
+        return arrivalAir;
     }
     public void setArrivalCity(String arrivalCity) 
     {
@@ -182,7 +208,9 @@ public class Flights extends BaseEntity
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("flightId", getFlightId())
             .append("airlineCompany", getAirlineCompany())
+            .append("departureAir", getDepartureAir())
             .append("departureCity", getDepartureCity())
+            .append("arrivalAir", getArrivalAir())
             .append("arrivalCity", getArrivalCity())
             .append("departureTime", getDepartureTime())
             .append("arrivalTime", getArrivalTime())

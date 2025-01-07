@@ -97,7 +97,9 @@
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="航班号" align="center" prop="flightId" />
       <el-table-column label="航空公司" align="center" prop="airlineCompany" />
+      <el-table-column label="出发机场" align="center" prop="departureAir" />
       <el-table-column label="出发城市" align="center" prop="departureCity" />
+      <el-table-column label="到达机场" align="center" prop="arrivalAir" />
       <el-table-column label="到达城市" align="center" prop="arrivalCity" />
       <el-table-column label="出发时间" align="center" prop="departureTime" width="180">
         <template slot-scope="scope">
@@ -228,7 +230,9 @@ export default {
         pageNum: 1,
         pageSize: 10,
         airlineCompany: null,
+        departureAir: null,
         departureCity: null,
+        arrivalAir: null,
         arrivalCity: null,
         departureTime: null,
         arrivalTime: null,
@@ -269,7 +273,9 @@ export default {
       this.form = {
         flightId: null,
         airlineCompany: null,
+        departureAir: null,
         departureCity: null,
+        arrivalAir: null,
         arrivalCity: null,
         departureTime: null,
         arrivalTime: null,

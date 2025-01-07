@@ -7,7 +7,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap type="Flights" id="FlightsResult">
         <result property="flightId"    column="flight_id"    />
         <result property="airlineCompany"    column="airline_company"    />
+        <result property="departureAir"    column="departure_air"    />
         <result property="departureCity"    column="departure_city"    />
+        <result property="arrivalAir"    column="arrival_air"    />
         <result property="arrivalCity"    column="arrival_city"    />
         <result property="departureTime"    column="departure_time"    />
         <result property="arrivalTime"    column="arrival_time"    />
@@ -20,14 +22,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectFlightsVo">
-        select flight_id, airline_company, departure_city, arrival_city, departure_time, arrival_time, aircraft_type, total_seats, status, transit, created_time, updated_time from a_flights
+        select flight_id, airline_company, departure_air, departure_city, arrival_air, arrival_city, departure_time, arrival_time, aircraft_type, total_seats, status, transit, created_time, updated_time from a_flights
     </sql>
 
     <select id="selectFlightsList" parameterType="Flights" resultMap="FlightsResult">
         <include refid="selectFlightsVo"/>
         <where>  
             <if test="airlineCompany != null  and airlineCompany != ''"> and airline_company = #{airlineCompany}</if>
+            <if test="departureAir != null  and departureAir != ''"> and departure_air = #{departureAir}</if>
             <if test="departureCity != null  and departureCity != ''"> and departure_city = #{departureCity}</if>
+            <if test="arrivalAir != null  and arrivalAir != ''"> and arrival_air = #{arrivalAir}</if>
             <if test="arrivalCity != null  and arrivalCity != ''"> and arrival_city = #{arrivalCity}</if>
             <if test="departureTime != null "> and departure_time = #{departureTime}</if>
             <if test="arrivalTime != null "> and arrival_time = #{arrivalTime}</if>
@@ -50,7 +54,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="flightId != null">flight_id,</if>
             <if test="airlineCompany != null">airline_company,</if>
+            <if test="departureAir != null">departure_air,</if>
             <if test="departureCity != null">departure_city,</if>
+            <if test="arrivalAir != null">arrival_air,</if>
             <if test="arrivalCity != null">arrival_city,</if>
             <if test="departureTime != null">departure_time,</if>
             <if test="arrivalTime != null">arrival_time,</if>
@@ -64,7 +70,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="flightId != null">#{flightId},</if>
             <if test="airlineCompany != null">#{airlineCompany},</if>
+            <if test="departureAir != null">#{departureAir},</if>
             <if test="departureCity != null">#{departureCity},</if>
+            <if test="arrivalAir != null">#{arrivalAir},</if>
             <if test="arrivalCity != null">#{arrivalCity},</if>
             <if test="departureTime != null">#{departureTime},</if>
             <if test="arrivalTime != null">#{arrivalTime},</if>
@@ -81,7 +89,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update a_flights
         <trim prefix="SET" suffixOverrides=",">
             <if test="airlineCompany != null">airline_company = #{airlineCompany},</if>
+            <if test="departureAir != null">departure_air = #{departureAir},</if>
             <if test="departureCity != null">departure_city = #{departureCity},</if>
+            <if test="arrivalAir != null">arrival_air = #{arrivalAir},</if>
             <if test="arrivalCity != null">arrival_city = #{arrivalCity},</if>
             <if test="departureTime != null">departure_time = #{departureTime},</if>
             <if test="arrivalTime != null">arrival_time = #{arrivalTime},</if>
