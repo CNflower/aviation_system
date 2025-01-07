@@ -8,31 +8,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="orderId"    column="order_id"    />
         <result property="passengerId"    column="passenger_id"    />
         <result property="flightId"    column="flight_id"    />
+        <result property="transitId"    column="transit_id"    />
         <result property="priceId"    column="price_id"    />
         <result property="seatNumber"    column="seat_number"    />
         <result property="orderStatus"    column="order_status"    />
         <result property="orderTime"    column="order_time"    />
         <result property="paymentTime"    column="payment_time"    />
         <result property="totalAmount"    column="total_amount"    />
+        <result property="alino"    column="alino"    />
         <result property="createdTime"    column="created_time"    />
         <result property="updatedTime"    column="updated_time"    />
     </resultMap>
 
     <sql id="selectOrdersVo">
-        select order_id, passenger_id, flight_id, price_id, seat_number, order_status, order_time, payment_time, total_amount, created_time, updated_time from a_orders
+        select order_id, passenger_id, flight_id, transit_id, price_id, seat_number, order_status, order_time, payment_time, total_amount, alino, created_time, updated_time from a_orders
     </sql>
 
     <select id="selectOrdersList" parameterType="Orders" resultMap="OrdersResult">
         <include refid="selectOrdersVo"/>
         <where>  
             <if test="passengerId != null "> and passenger_id = #{passengerId}</if>
-            <if test="flightId != null  and flightId != ''"> and flight_id = #{flightId}</if>
+            <if test="flightId != null "> and flight_id = #{flightId}</if>
+            <if test="transitId != null "> and transit_id = #{transitId}</if>
             <if test="priceId != null "> and price_id = #{priceId}</if>
             <if test="seatNumber != null  and seatNumber != ''"> and seat_number = #{seatNumber}</if>
             <if test="orderStatus != null  and orderStatus != ''"> and order_status = #{orderStatus}</if>
             <if test="orderTime != null "> and order_time = #{orderTime}</if>
             <if test="paymentTime != null "> and payment_time = #{paymentTime}</if>
             <if test="totalAmount != null "> and total_amount = #{totalAmount}</if>
+            <if test="alino != null  and alino != ''"> and alino = #{alino}</if>
+            <if test="createdTime != null "> and created_time = #{createdTime}</if>
+            <if test="updatedTime != null "> and updated_time = #{updatedTime}</if>
         </where>
     </select>
     
@@ -47,12 +53,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="orderId != null">order_id,</if>
             <if test="passengerId != null">passenger_id,</if>
             <if test="flightId != null">flight_id,</if>
+            <if test="transitId != null">transit_id,</if>
             <if test="priceId != null">price_id,</if>
             <if test="seatNumber != null">seat_number,</if>
             <if test="orderStatus != null">order_status,</if>
             <if test="orderTime != null">order_time,</if>
             <if test="paymentTime != null">payment_time,</if>
             <if test="totalAmount != null">total_amount,</if>
+            <if test="alino != null">alino,</if>
             <if test="createdTime != null">created_time,</if>
             <if test="updatedTime != null">updated_time,</if>
          </trim>
@@ -60,12 +68,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="orderId != null">#{orderId},</if>
             <if test="passengerId != null">#{passengerId},</if>
             <if test="flightId != null">#{flightId},</if>
+            <if test="transitId != null">#{transitId},</if>
             <if test="priceId != null">#{priceId},</if>
             <if test="seatNumber != null">#{seatNumber},</if>
             <if test="orderStatus != null">#{orderStatus},</if>
             <if test="orderTime != null">#{orderTime},</if>
             <if test="paymentTime != null">#{paymentTime},</if>
             <if test="totalAmount != null">#{totalAmount},</if>
+            <if test="alino != null">#{alino},</if>
             <if test="createdTime != null">#{createdTime},</if>
             <if test="updatedTime != null">#{updatedTime},</if>
          </trim>
@@ -76,12 +86,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <trim prefix="SET" suffixOverrides=",">
             <if test="passengerId != null">passenger_id = #{passengerId},</if>
             <if test="flightId != null">flight_id = #{flightId},</if>
+            <if test="transitId != null">transit_id = #{transitId},</if>
             <if test="priceId != null">price_id = #{priceId},</if>
             <if test="seatNumber != null">seat_number = #{seatNumber},</if>
             <if test="orderStatus != null">order_status = #{orderStatus},</if>
             <if test="orderTime != null">order_time = #{orderTime},</if>
             <if test="paymentTime != null">payment_time = #{paymentTime},</if>
             <if test="totalAmount != null">total_amount = #{totalAmount},</if>
+            <if test="alino != null">alino = #{alino},</if>
             <if test="createdTime != null">created_time = #{createdTime},</if>
             <if test="updatedTime != null">updated_time = #{updatedTime},</if>
         </trim>

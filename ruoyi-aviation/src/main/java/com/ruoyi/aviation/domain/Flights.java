@@ -10,8 +10,8 @@ import com.ruoyi.common.core.domain.BaseEntity;
 /**
  * 航班信息对象 a_flights
  * 
- * @author sleeping
- * @date 2025-01-06
+ * @author Sleeping
+ * @date 2025-01-07
  */
 public class Flights extends BaseEntity
 {
@@ -54,10 +54,18 @@ public class Flights extends BaseEntity
     @Excel(name = "航班状态")
     private String status;
 
+    /** 是否中转 */
+    @Excel(name = "是否中转")
+    private String transit;
+
     /** 记录创建时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "记录创建时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date createdTime;
 
     /** 记录更新时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "记录更新时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date updatedTime;
 
     public void setFlightId(Long flightId) 
@@ -141,6 +149,15 @@ public class Flights extends BaseEntity
     {
         return status;
     }
+    public void setTransit(String transit) 
+    {
+        this.transit = transit;
+    }
+
+    public String getTransit() 
+    {
+        return transit;
+    }
     public void setCreatedTime(Date createdTime) 
     {
         this.createdTime = createdTime;
@@ -172,6 +189,7 @@ public class Flights extends BaseEntity
             .append("aircraftType", getAircraftType())
             .append("totalSeats", getTotalSeats())
             .append("status", getStatus())
+            .append("transit", getTransit())
             .append("createdTime", getCreatedTime())
             .append("updatedTime", getUpdatedTime())
             .toString();

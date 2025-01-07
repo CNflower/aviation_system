@@ -12,7 +12,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
  * 退票记录对象 a_refunds
  * 
  * @author Sleeping
- * @date 2025-01-06
+ * @date 2025-01-07
  */
 public class Refunds extends BaseEntity
 {
@@ -23,7 +23,7 @@ public class Refunds extends BaseEntity
 
     /** 订单号 */
     @Excel(name = "订单号")
-    private String orderId;
+    private Long orderId;
 
     /** 退款金额 */
     @Excel(name = "退款金额")
@@ -43,9 +43,13 @@ public class Refunds extends BaseEntity
     private Date refundTime;
 
     /** 记录创建时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "记录创建时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date createdTime;
 
     /** 记录更新时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "记录更新时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date updatedTime;
 
     public void setRefundId(Long refundId) 
@@ -57,12 +61,12 @@ public class Refunds extends BaseEntity
     {
         return refundId;
     }
-    public void setOrderId(String orderId) 
+    public void setOrderId(Long orderId) 
     {
         this.orderId = orderId;
     }
 
-    public String getOrderId() 
+    public Long getOrderId() 
     {
         return orderId;
     }

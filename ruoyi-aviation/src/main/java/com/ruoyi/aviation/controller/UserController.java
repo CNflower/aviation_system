@@ -25,7 +25,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
  * 乘客信息Controller
  * 
  * @author Sleeping
- * @date 2025-01-06
+ * @date 2025-01-07
  */
 @RestController
 @RequestMapping("/aviation/user")

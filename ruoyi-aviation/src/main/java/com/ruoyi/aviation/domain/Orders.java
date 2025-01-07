@@ -12,7 +12,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
  * 订单对象 a_orders
  * 
  * @author Sleeping
- * @date 2025-01-06
+ * @date 2025-01-07
  */
 public class Orders extends BaseEntity
 {
@@ -27,7 +27,11 @@ public class Orders extends BaseEntity
 
     /** 航班号 */
     @Excel(name = "航班号")
-    private String flightId;
+    private Long flightId;
+
+    /** 中转航班号 */
+    @Excel(name = "中转航班号")
+    private Long transitId;
 
     /** 价格ID */
     @Excel(name = "价格ID")
@@ -55,10 +59,18 @@ public class Orders extends BaseEntity
     @Excel(name = "订单总额")
     private BigDecimal totalAmount;
 
+    /** 支付宝交易号 */
+    @Excel(name = "支付宝交易号")
+    private String alino;
+
     /** 记录创建时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "记录创建时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date createdTime;
 
     /** 记录更新时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "记录更新时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date updatedTime;
 
     public void setOrderId(Long orderId) 
@@ -79,14 +91,23 @@ public class Orders extends BaseEntity
     {
         return passengerId;
     }
-    public void setFlightId(String flightId) 
+    public void setFlightId(Long flightId) 
     {
         this.flightId = flightId;
     }
 
-    public String getFlightId() 
+    public Long getFlightId() 
     {
         return flightId;
+    }
+    public void setTransitId(Long transitId) 
+    {
+        this.transitId = transitId;
+    }
+
+    public Long getTransitId() 
+    {
+        return transitId;
     }
     public void setPriceId(Long priceId) 
     {
@@ -142,6 +163,15 @@ public class Orders extends BaseEntity
     {
         return totalAmount;
     }
+    public void setAlino(String alino) 
+    {
+        this.alino = alino;
+    }
+
+    public String getAlino() 
+    {
+        return alino;
+    }
     public void setCreatedTime(Date createdTime) 
     {
         this.createdTime = createdTime;
@@ -167,12 +197,14 @@ public class Orders extends BaseEntity
             .append("orderId", getOrderId())
             .append("passengerId", getPassengerId())
             .append("flightId", getFlightId())
+            .append("transitId", getTransitId())
             .append("priceId", getPriceId())
             .append("seatNumber", getSeatNumber())
             .append("orderStatus", getOrderStatus())
             .append("orderTime", getOrderTime())
             .append("paymentTime", getPaymentTime())
             .append("totalAmount", getTotalAmount())
+            .append("alino", getAlino())
             .append("createdTime", getCreatedTime())
             .append("updatedTime", getUpdatedTime())
             .toString();

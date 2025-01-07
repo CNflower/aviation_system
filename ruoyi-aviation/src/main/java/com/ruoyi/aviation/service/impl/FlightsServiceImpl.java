@@ -10,8 +10,8 @@ import com.ruoyi.aviation.service.IFlightsService;
 /**
  * 航班信息Service业务层处理
  * 
- * @author sleeping
- * @date 2025-01-06
+ * @author Sleeping
+ * @date 2025-01-07
  */
 @Service
 public class FlightsServiceImpl implements IFlightsService 

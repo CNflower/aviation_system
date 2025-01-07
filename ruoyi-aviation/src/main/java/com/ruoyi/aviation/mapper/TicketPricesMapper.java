@@ -7,7 +7,7 @@ import com.ruoyi.aviation.domain.TicketPrices;
  * 机票价格Mapper接口
  * 
  * @author Sleeping
- * @date 2025-01-06
+ * @date 2025-01-07
  */
 public interface TicketPricesMapper 
 {

@@ -11,7 +11,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
  * 乘客信息对象 a_user
  * 
  * @author Sleeping
- * @date 2025-01-06
+ * @date 2025-01-07
  */
 public class User extends BaseEntity
 {
@@ -45,9 +45,13 @@ public class User extends BaseEntity
     private String email;
 
     /** 记录创建时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "记录创建时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date createdTime;
 
     /** 记录更新时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "记录更新时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date updatedTime;
 
     public void setUserId(Long userId) 

@@ -33,6 +33,22 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
+      <el-form-item label="记录创建时间" prop="createdTime">
+        <el-date-picker clearable
+          v-model="queryParams.createdTime"
+          type="date"
+          value-format="yyyy-MM-dd"
+          placeholder="请选择记录创建时间">
+        </el-date-picker>
+      </el-form-item>
+      <el-form-item label="记录更新时间" prop="updatedTime">
+        <el-date-picker clearable
+          v-model="queryParams.updatedTime"
+          type="date"
+          value-format="yyyy-MM-dd"
+          placeholder="请选择记录更新时间">
+        </el-date-picker>
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -94,6 +110,16 @@
       <el-table-column label="身份证号" align="center" prop="idCard" />
       <el-table-column label="联系电话" align="center" prop="phone" />
       <el-table-column label="电子邮箱" align="center" prop="email" />
+      <el-table-column label="记录创建时间" align="center" prop="createdTime" width="180">
+        <template slot-scope="scope">
+          <span>{{ parseTime(scope.row.createdTime, '{y}-{m}-{d}') }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="记录更新时间" align="center" prop="updatedTime" width="180">
+        <template slot-scope="scope">
+          <span>{{ parseTime(scope.row.updatedTime, '{y}-{m}-{d}') }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -136,6 +162,22 @@
         </el-form-item>
         <el-form-item label="电子邮箱" prop="email">
           <el-input v-model="form.email" placeholder="请输入电子邮箱" />
+        </el-form-item>
+        <el-form-item label="记录创建时间" prop="createdTime">
+          <el-date-picker clearable
+            v-model="form.createdTime"
+            type="date"
+            value-format="yyyy-MM-dd"
+            placeholder="请选择记录创建时间">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="记录更新时间" prop="updatedTime">
+          <el-date-picker clearable
+            v-model="form.updatedTime"
+            type="date"
+            value-format="yyyy-MM-dd"
+            placeholder="请选择记录更新时间">
+          </el-date-picker>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -181,6 +223,8 @@ export default {
         idCard: null,
         phone: null,
         email: null,
+        createdTime: null,
+        updatedTime: null
       },
       // 表单参数
       form: {},

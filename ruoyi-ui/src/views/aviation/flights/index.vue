@@ -1,30 +1,6 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="航空公司" prop="airlineCompany">
-        <el-input
-          v-model="queryParams.airlineCompany"
-          placeholder="请输入航空公司"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="出发城市" prop="departureCity">
-        <el-input
-          v-model="queryParams.departureCity"
-          placeholder="请输入出发城市"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="到达城市" prop="arrivalCity">
-        <el-input
-          v-model="queryParams.arrivalCity"
-          placeholder="请输入到达城市"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
       <el-form-item label="出发时间" prop="departureTime">
         <el-date-picker clearable
           v-model="queryParams.departureTime"
@@ -48,6 +24,22 @@
           clearable
           @keyup.enter.native="handleQuery"
         />
+      </el-form-item>
+      <el-form-item label="记录创建时间" prop="createdTime">
+        <el-date-picker clearable
+          v-model="queryParams.createdTime"
+          type="date"
+          value-format="yyyy-MM-dd"
+          placeholder="请选择记录创建时间">
+        </el-date-picker>
+      </el-form-item>
+      <el-form-item label="记录更新时间" prop="updatedTime">
+        <el-date-picker clearable
+          v-model="queryParams.updatedTime"
+          type="date"
+          value-format="yyyy-MM-dd"
+          placeholder="请选择记录更新时间">
+        </el-date-picker>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
@@ -120,6 +112,17 @@
       <el-table-column label="飞机型号" align="center" prop="aircraftType" />
       <el-table-column label="总座位数" align="center" prop="totalSeats" />
       <el-table-column label="航班状态" align="center" prop="status" />
+      <el-table-column label="是否中转" align="center" prop="transit" />
+      <el-table-column label="记录创建时间" align="center" prop="createdTime" width="180">
+        <template slot-scope="scope">
+          <span>{{ parseTime(scope.row.createdTime, '{y}-{m}-{d}') }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="记录更新时间" align="center" prop="updatedTime" width="180">
+        <template slot-scope="scope">
+          <span>{{ parseTime(scope.row.updatedTime, '{y}-{m}-{d}') }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -151,15 +154,6 @@
     <!-- 添加或修改航班信息对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="航空公司" prop="airlineCompany">
-          <el-input v-model="form.airlineCompany" placeholder="请输入航空公司" />
-        </el-form-item>
-        <el-form-item label="出发城市" prop="departureCity">
-          <el-input v-model="form.departureCity" placeholder="请输入出发城市" />
-        </el-form-item>
-        <el-form-item label="到达城市" prop="arrivalCity">
-          <el-input v-model="form.arrivalCity" placeholder="请输入到达城市" />
-        </el-form-item>
         <el-form-item label="出发时间" prop="departureTime">
           <el-date-picker clearable
             v-model="form.departureTime"
@@ -178,6 +172,22 @@
         </el-form-item>
         <el-form-item label="总座位数" prop="totalSeats">
           <el-input v-model="form.totalSeats" placeholder="请输入总座位数" />
+        </el-form-item>
+        <el-form-item label="记录创建时间" prop="createdTime">
+          <el-date-picker clearable
+            v-model="form.createdTime"
+            type="date"
+            value-format="yyyy-MM-dd"
+            placeholder="请选择记录创建时间">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="记录更新时间" prop="updatedTime">
+          <el-date-picker clearable
+            v-model="form.updatedTime"
+            type="date"
+            value-format="yyyy-MM-dd"
+            placeholder="请选择记录更新时间">
+          </el-date-picker>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -225,6 +235,9 @@ export default {
         aircraftType: null,
         totalSeats: null,
         status: null,
+        transit: null,
+        createdTime: null,
+        updatedTime: null
       },
       // 表单参数
       form: {},
@@ -263,6 +276,7 @@ export default {
         aircraftType: null,
         totalSeats: null,
         status: null,
+        transit: null,
         createdTime: null,
         updatedTime: null
       };

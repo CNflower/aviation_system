@@ -6,8 +6,8 @@ import com.ruoyi.aviation.domain.Flights;
 /**
  * 航班信息Mapper接口
  * 
- * @author sleeping
- * @date 2025-01-06
+ * @author Sleeping
+ * @date 2025-01-07
  */
 public interface FlightsMapper 
 {

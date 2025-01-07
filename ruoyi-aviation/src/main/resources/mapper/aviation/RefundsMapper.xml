@@ -22,11 +22,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectRefundsList" parameterType="Refunds" resultMap="RefundsResult">
         <include refid="selectRefundsVo"/>
         <where>  
-            <if test="orderId != null  and orderId != ''"> and order_id = #{orderId}</if>
+            <if test="orderId != null "> and order_id = #{orderId}</if>
             <if test="refundAmount != null "> and refund_amount = #{refundAmount}</if>
             <if test="refundReason != null  and refundReason != ''"> and refund_reason = #{refundReason}</if>
             <if test="refundStatus != null  and refundStatus != ''"> and refund_status = #{refundStatus}</if>
             <if test="refundTime != null "> and refund_time = #{refundTime}</if>
+            <if test="createdTime != null "> and created_time = #{createdTime}</if>
+            <if test="updatedTime != null "> and updated_time = #{updatedTime}</if>
         </where>
     </select>
     

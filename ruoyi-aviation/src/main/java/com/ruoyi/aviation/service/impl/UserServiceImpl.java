@@ -11,7 +11,7 @@ import com.ruoyi.aviation.service.IUserService;
  * 乘客信息Service业务层处理
  * 
  * @author Sleeping
- * @date 2025-01-06
+ * @date 2025-01-07
  */
 @Service
 public class UserServiceImpl implements IUserService 

@@ -21,10 +21,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectTicketPricesList" parameterType="TicketPrices" resultMap="TicketPricesResult">
         <include refid="selectTicketPricesVo"/>
         <where>  
-            <if test="flightId != null  and flightId != ''"> and flight_id = #{flightId}</if>
+            <if test="flightId != null "> and flight_id = #{flightId}</if>
             <if test="cabinClass != null  and cabinClass != ''"> and cabin_class = #{cabinClass}</if>
             <if test="price != null "> and price = #{price}</if>
             <if test="remainingSeats != null "> and remaining_seats = #{remainingSeats}</if>
+            <if test="createdTime != null "> and created_time = #{createdTime}</if>
+            <if test="updatedTime != null "> and updated_time = #{updatedTime}</if>
         </where>
     </select>
     

@@ -14,25 +14,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="aircraftType"    column="aircraft_type"    />
         <result property="totalSeats"    column="total_seats"    />
         <result property="status"    column="status"    />
+        <result property="transit"    column="transit"    />
         <result property="createdTime"    column="created_time"    />
         <result property="updatedTime"    column="updated_time"    />
     </resultMap>
 
     <sql id="selectFlightsVo">
-        select flight_id, airline_company, departure_city, arrival_city, departure_time, arrival_time, aircraft_type, total_seats, status, created_time, updated_time from a_flights
+        select flight_id, airline_company, departure_city, arrival_city, departure_time, arrival_time, aircraft_type, total_seats, status, transit, created_time, updated_time from a_flights
     </sql>
 
     <select id="selectFlightsList" parameterType="Flights" resultMap="FlightsResult">
         <include refid="selectFlightsVo"/>
         <where>  
-            <if test="airlineCompany != null  and airlineCompany != ''"> and airline_company like concat('%', #{airlineCompany}, '%')</if>
-            <if test="departureCity != null  and departureCity != ''"> and departure_city like concat('%', #{departureCity}, '%')</if>
-            <if test="arrivalCity != null  and arrivalCity != ''"> and arrival_city like concat('%', #{arrivalCity}, '%')</if>
+            <if test="airlineCompany != null  and airlineCompany != ''"> and airline_company = #{airlineCompany}</if>
+            <if test="departureCity != null  and departureCity != ''"> and departure_city = #{departureCity}</if>
+            <if test="arrivalCity != null  and arrivalCity != ''"> and arrival_city = #{arrivalCity}</if>
             <if test="departureTime != null "> and departure_time = #{departureTime}</if>
             <if test="arrivalTime != null "> and arrival_time = #{arrivalTime}</if>
             <if test="aircraftType != null  and aircraftType != ''"> and aircraft_type = #{aircraftType}</if>
             <if test="totalSeats != null "> and total_seats = #{totalSeats}</if>
             <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="transit != null  and transit != ''"> and transit = #{transit}</if>
+            <if test="createdTime != null "> and created_time = #{createdTime}</if>
+            <if test="updatedTime != null "> and updated_time = #{updatedTime}</if>
         </where>
     </select>
     
@@ -53,6 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="aircraftType != null">aircraft_type,</if>
             <if test="totalSeats != null">total_seats,</if>
             <if test="status != null">status,</if>
+            <if test="transit != null">transit,</if>
             <if test="createdTime != null">created_time,</if>
             <if test="updatedTime != null">updated_time,</if>
          </trim>
@@ -66,6 +71,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="aircraftType != null">#{aircraftType},</if>
             <if test="totalSeats != null">#{totalSeats},</if>
             <if test="status != null">#{status},</if>
+            <if test="transit != null">#{transit},</if>
             <if test="createdTime != null">#{createdTime},</if>
             <if test="updatedTime != null">#{updatedTime},</if>
          </trim>
@@ -82,6 +88,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="aircraftType != null">aircraft_type = #{aircraftType},</if>
             <if test="totalSeats != null">total_seats = #{totalSeats},</if>
             <if test="status != null">status = #{status},</if>
+            <if test="transit != null">transit = #{transit},</if>
             <if test="createdTime != null">created_time = #{createdTime},</if>
             <if test="updatedTime != null">updated_time = #{updatedTime},</if>
         </trim>

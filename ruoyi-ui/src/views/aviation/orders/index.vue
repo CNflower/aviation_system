@@ -17,6 +17,14 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
+      <el-form-item label="中转航班号" prop="transitId">
+        <el-input
+          v-model="queryParams.transitId"
+          placeholder="请输入中转航班号"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
       <el-form-item label="价格ID" prop="priceId">
         <el-input
           v-model="queryParams.priceId"
@@ -56,6 +64,30 @@
           clearable
           @keyup.enter.native="handleQuery"
         />
+      </el-form-item>
+      <el-form-item label="支付宝交易号" prop="alino">
+        <el-input
+          v-model="queryParams.alino"
+          placeholder="请输入支付宝交易号"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="记录创建时间" prop="createdTime">
+        <el-date-picker clearable
+          v-model="queryParams.createdTime"
+          type="date"
+          value-format="yyyy-MM-dd"
+          placeholder="请选择记录创建时间">
+        </el-date-picker>
+      </el-form-item>
+      <el-form-item label="记录更新时间" prop="updatedTime">
+        <el-date-picker clearable
+          v-model="queryParams.updatedTime"
+          type="date"
+          value-format="yyyy-MM-dd"
+          placeholder="请选择记录更新时间">
+        </el-date-picker>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
@@ -114,6 +146,7 @@
       <el-table-column label="订单号" align="center" prop="orderId" />
       <el-table-column label="乘客ID" align="center" prop="passengerId" />
       <el-table-column label="航班号" align="center" prop="flightId" />
+      <el-table-column label="中转航班号" align="center" prop="transitId" />
       <el-table-column label="价格ID" align="center" prop="priceId" />
       <el-table-column label="座位号" align="center" prop="seatNumber" />
       <el-table-column label="订单状态" align="center" prop="orderStatus" />
@@ -128,6 +161,17 @@
         </template>
       </el-table-column>
       <el-table-column label="订单总额" align="center" prop="totalAmount" />
+      <el-table-column label="支付宝交易号" align="center" prop="alino" />
+      <el-table-column label="记录创建时间" align="center" prop="createdTime" width="180">
+        <template slot-scope="scope">
+          <span>{{ parseTime(scope.row.createdTime, '{y}-{m}-{d}') }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="记录更新时间" align="center" prop="updatedTime" width="180">
+        <template slot-scope="scope">
+          <span>{{ parseTime(scope.row.updatedTime, '{y}-{m}-{d}') }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -165,6 +209,9 @@
         <el-form-item label="航班号" prop="flightId">
           <el-input v-model="form.flightId" placeholder="请输入航班号" />
         </el-form-item>
+        <el-form-item label="中转航班号" prop="transitId">
+          <el-input v-model="form.transitId" placeholder="请输入中转航班号" />
+        </el-form-item>
         <el-form-item label="价格ID" prop="priceId">
           <el-input v-model="form.priceId" placeholder="请输入价格ID" />
         </el-form-item>
@@ -189,6 +236,25 @@
         </el-form-item>
         <el-form-item label="订单总额" prop="totalAmount">
           <el-input v-model="form.totalAmount" placeholder="请输入订单总额" />
+        </el-form-item>
+        <el-form-item label="支付宝交易号" prop="alino">
+          <el-input v-model="form.alino" placeholder="请输入支付宝交易号" />
+        </el-form-item>
+        <el-form-item label="记录创建时间" prop="createdTime">
+          <el-date-picker clearable
+            v-model="form.createdTime"
+            type="date"
+            value-format="yyyy-MM-dd"
+            placeholder="请选择记录创建时间">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="记录更新时间" prop="updatedTime">
+          <el-date-picker clearable
+            v-model="form.updatedTime"
+            type="date"
+            value-format="yyyy-MM-dd"
+            placeholder="请选择记录更新时间">
+          </el-date-picker>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -230,12 +296,16 @@ export default {
         pageSize: 10,
         passengerId: null,
         flightId: null,
+        transitId: null,
         priceId: null,
         seatNumber: null,
         orderStatus: null,
         orderTime: null,
         paymentTime: null,
         totalAmount: null,
+        alino: null,
+        createdTime: null,
+        updatedTime: null
       },
       // 表单参数
       form: {},
@@ -268,12 +338,14 @@ export default {
         orderId: null,
         passengerId: null,
         flightId: null,
+        transitId: null,
         priceId: null,
         seatNumber: null,
         orderStatus: null,
         orderTime: null,
         paymentTime: null,
         totalAmount: null,
+        alino: null,
         createdTime: null,
         updatedTime: null
       };

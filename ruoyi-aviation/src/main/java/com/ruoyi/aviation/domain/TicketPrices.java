@@ -12,7 +12,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
  * 机票价格对象 a_ticket_prices
  * 
  * @author Sleeping
- * @date 2025-01-06
+ * @date 2025-01-07
  */
 public class TicketPrices extends BaseEntity
 {
@@ -23,7 +23,7 @@ public class TicketPrices extends BaseEntity
 
     /** 航班号 */
     @Excel(name = "航班号")
-    private String flightId;
+    private Long flightId;
 
     /** 舱位等级 */
     @Excel(name = "舱位等级")
@@ -38,9 +38,13 @@ public class TicketPrices extends BaseEntity
     private Long remainingSeats;
 
     /** 记录创建时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "记录创建时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date createdTime;
 
     /** 记录更新时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "记录更新时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date updatedTime;
 
     public void setPriceId(Long priceId) 
@@ -52,12 +56,12 @@ public class TicketPrices extends BaseEntity
     {
         return priceId;
     }
-    public void setFlightId(String flightId) 
+    public void setFlightId(Long flightId) 
     {
         this.flightId = flightId;
     }
 
-    public String getFlightId() 
+    public Long getFlightId() 
     {
         return flightId;
     }

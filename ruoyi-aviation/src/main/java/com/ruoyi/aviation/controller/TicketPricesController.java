@@ -25,7 +25,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
  * 机票价格Controller
  * 
  * @author Sleeping
- * @date 2025-01-06
+ * @date 2025-01-07
  */
 @RestController
 @RequestMapping("/aviation/prices")
